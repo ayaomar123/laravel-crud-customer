@@ -14,15 +14,22 @@ Route::get('/',function(){
   return view('welcome');
 });
 
-
-//Route::namespace('admin')->prefix('admin')->group(function(){
-  Route::get('/customers', 'CustomerController@index')->name('index');
-  Route::get('/customers/create', 'CustomerController@create')->name('create');
-  Route::get('/customers1', 'CustomerController@store')->name('store');
-  Route::get('/customers/{id}', 'CustomerController@edit')->name('edit');
-  Route::put('/customers/{id}', 'CustomerController@update')->name('update');
-  Route::delete('/customers/{id}', 'CustomerController@delete')->name('delete');
-//});
+Route::group(['prefix' => 'customers'], function(){
+  Route::get('/', 'CustomerController@index')->name('index');
+  Route::get('/create', 'CustomerController@create')->name('create');
+  Route::post('/', 'CustomerController@store')->name('store');
+  Route::get('/{id}', 'CustomerController@edit')->name('edit');
+  Route::put('/{id}/update', 'CustomerController@update')->name('update');
+  Route::delete('/{id}', 'CustomerController@delete')->name('delete');
+});
+// Route::namespace('admin')->prefix('admin')->group(function(){
+//   Route::get('/customers', 'CustomerController@index')->name('index');
+//   Route::get('/customers/create', 'CustomerController@create')->name('create');
+//   Route::get('/customers1', 'CustomerController@store')->name('store');
+//   Route::get('/customers/{id}', 'CustomerController@edit')->name('edit');
+//   Route::put('/customers/{id}', 'CustomerController@update')->name('update');
+//   Route::delete('/customers/{id}', 'CustomerController@delete')->name('delete');
+// });
 
 // Route::get('/home', 'HomeController@index')->name('home');
 // route::resource('customer','CustomersController');

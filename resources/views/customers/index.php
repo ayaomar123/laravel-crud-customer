@@ -15,18 +15,21 @@
     <table  class="table">
       <tr>
         <th>Id</th>
+          <th>img</th>
         <th>Name</th>
         <th>Email</th>
-        <th>password</th>
+        <th>Phone</th>
         <th> Edit</th>
         <th>delete</th>
       </tr>
       <?php foreach ($customer as $cus): ?>
         <tr>
           <td><?= $cus->id ?></td>
+
+            <td> <img src="<?= $cus->image ?>"width="100"></td>
           <td><?= $cus->name ?></td>
           <td><?= $cus->email ?></td>
-          <td><?= $cus->password ?></td>
+            <td><?= $cus->phone ?></td>
           <td> <a href="<?= route('edit',[$cus->id]) ?>">Edit </a></td>
           <td> <form class="" action="<?= route('delete',[$cus->id]) ?>" method="post">
             <input type="hidden" name="_token" value="<?= csrf_token() ?> ">

@@ -18,13 +18,26 @@
        <label for="name">Name</label>
        <input type="text" name="name" class="form-control" id="name" aria-describedby="emailHelp" >
       </div>
+      <div class="form-group">
+          <label for="image">Choose Image</label>
+          <input id="image" type="file" name="image">
+      </div>
+
         <div class="form-group">
        <label for="email">Email address</label>
        <input type="email" name="email"class="form-control" id="email" aria-describedby="emailHelp">
       </div>
       <div class="form-group">
+          <label for="name">Phone</label>
+          <input type="text" name="phone" class="form-control" id="phone" aria-describedby="emailHelp" >
+      </div>
+      <div class="form-group">
        <label for="password">Password</label>
        <input type="password"name="password" class="form-control" id="password">
+      </div>
+      <div class="form-group">
+          <label for="password">Confirm Password</label>
+          <input type="password"name="confpassword" class="form-control" id="conf-password">
       </div>
       <button type="submit" class="btn btn-primary">Create</button>
   </form>

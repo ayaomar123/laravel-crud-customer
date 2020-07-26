@@ -4,27 +4,45 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\customer;
+use phpDocumentor\Reflection\Types\AbstractList;
+
 class CustomerController extends Controller
 {
-    public function index(){
-      //return customer::all();
-      return view('customers.index',['customer'=>customer::all(),
-    ]);
+    public function index()
+    {
+      $customer = customer::all();
+      return view('customers.index',compact('customer'));
     }
 
-    public function create(){
+
+    public function create()
+    {
         return view('customers.create');
     }
 
     public function store(Request $request){
-      $customer = new Customer();
-      $customer->name = $request->post('name');
-      $customer->email = $request->post('email');
-      $customer->password = $request->post('password');
+        $this->validate($request,[
+            'name'=>'required',
+            'image'=>'required',
+            'email'=>'required',
+            'password'=>'required',
+            'confpassword'=>'required',
+            'phone'=>'required'
+        ]);
+         if($request->password == $request->confpassword ){
+             $customer = new Customer();
+             $data = $request->only($customer->getFillable());
+             $data['password'] = bcrypt($request->password);
+             $data['confpassword'] = bcrypt($request->confpassword);
+             Customer::query()->create($data);
+             return redirect(route('index')); //return into index
+         }
+         else{
+            echo "password mismatch";
+         }
 
-     //save record to database
-     $customer->save();
-      return redirect(route('index')); //return into index
+
+
     }
 
     public function edit($id){
@@ -37,11 +55,11 @@ class CustomerController extends Controller
     }
 
     public function update(Request $request, $id){
-      $customer = customer::findOrFail($id);
-      $customer->name = $request->post('name');
-      $customer->email = $request->post('email');
-      $customer->password = $request->post('password');
-      $customer->save();
+        $customer = customer::find($id);
+        $data = $request->only($customer->getFillable());
+        $data['password'] = bcrypt($request->password);
+        $data['confpassword'] = bcrypt($request->confpassword);
+        $customer->update($data);
       return redirect(route('index'));
 
     }
@@ -52,4 +70,5 @@ class CustomerController extends Controller
       return redirect(route('index'));
 
     }
+
 }
