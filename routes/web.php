@@ -13,6 +13,9 @@
 Route::get('/',function(){
   return view('welcome');
 });
+Route::get('/content',function(){
+    return view('teams.content');
+});
 
 Route::group(['prefix' => 'customers'], function(){
   Route::get('/', 'CustomerController@index')->name('index');
@@ -22,14 +25,3 @@ Route::group(['prefix' => 'customers'], function(){
   Route::put('/{id}/update', 'CustomerController@update')->name('update');
   Route::delete('/{id}', 'CustomerController@delete')->name('delete');
 });
-// Route::namespace('admin')->prefix('admin')->group(function(){
-//   Route::get('/customers', 'CustomerController@index')->name('index');
-//   Route::get('/customers/create', 'CustomerController@create')->name('create');
-//   Route::get('/customers1', 'CustomerController@store')->name('store');
-//   Route::get('/customers/{id}', 'CustomerController@edit')->name('edit');
-//   Route::put('/customers/{id}', 'CustomerController@update')->name('update');
-//   Route::delete('/customers/{id}', 'CustomerController@delete')->name('delete');
-// });
-
-// Route::get('/home', 'HomeController@index')->name('home');
-// route::resource('customer','CustomersController');

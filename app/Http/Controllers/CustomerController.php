@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\customer;
-use phpDocumentor\Reflection\Types\AbstractList;
+
 
 class CustomerController extends Controller
 {
@@ -24,24 +24,17 @@ class CustomerController extends Controller
         $this->validate($request,[
             'name'=>'required',
             'image'=>'required',
-            'email'=>'required',
-            'password'=>'required',
-            'confpassword'=>'required',
+            'email'=>'required|unique:customers',
+            'password'=>'required|min:6',
+            'confpassword'=>'required|same:password',
             'phone'=>'required'
         ]);
-         if($request->password == $request->confpassword ){
              $customer = new Customer();
              $data = $request->only($customer->getFillable());
              $data['password'] = bcrypt($request->password);
-             $data['confpassword'] = bcrypt($request->confpassword);
+             //$data['confpassword'] = bcrypt($request->confpassword);
              Customer::query()->create($data);
-             return redirect(route('index')); //return into index
-         }
-         else{
-            echo "password mismatch";
-         }
-
-
+             return redirect(route('index'));
 
     }
 
