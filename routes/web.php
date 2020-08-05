@@ -13,15 +13,27 @@
 Route::get('/',function(){
   return view('welcome');
 });
-Route::get('/content',function(){
-    return view('teams.content');
-});
 
-Route::group(['prefix' => 'customers'], function(){
+Route::group(['prefix' => 'customers','middleware' => 'auth'], function(){
   Route::get('/', 'CustomerController@index')->name('index');
   Route::get('/create', 'CustomerController@create')->name('create');
   Route::post('/', 'CustomerController@store')->name('store');
   Route::get('/{id}', 'CustomerController@edit')->name('edit');
   Route::put('/{id}/update', 'CustomerController@update')->name('update');
   Route::delete('/{id}', 'CustomerController@delete')->name('delete');
+});
+
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+
+Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
+
+//Route::resource('roles', 'RolesController');
+
+Route::group(['middleware' => ['auth', 'admin']],function (){
+    Route::get('admin', 'CustomerController@index');
+
 });

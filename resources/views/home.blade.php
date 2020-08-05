@@ -1,23 +1,23 @@
-@extends('layouts.app')
+@extends('teams.content')
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
+    <table  class="table" width="100px">
+        <tr>
+            <th>Id</th>
+            <th>img</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+        </tr>
+        @foreach($customer as $cus)
+            <tr>
+                <td>{{ $cus->id }}</td>
 
-                <div class="panel-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    You are logged in!
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+                <td> <img src="{{ $cus->image }}"width="100" height="100"></td>
+                <td>{{ $cus->name}} </td>
+                <td>{{ $cus->email}}</td>
+                <td>{{ $cus->phone}}</td>
+            </tr>
+        @endforeach
+    </table>
 @endsection

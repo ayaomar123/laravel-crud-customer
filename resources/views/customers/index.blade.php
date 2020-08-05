@@ -1,16 +1,10 @@
-{{--@include('teams.header')--}}
 @extends('teams.content')
-
-@section('sidebar')
-    <h4 style="color: white">مرحباً أيها الزائر</h4>
-@endsection
-
 
 @section('content')
     <h1>Customers</h1>
     <a href="{{route('create')}}"class="btn btn-sm btn-primary mb-3 ">Add Customer</a>
     <br>
-    <table  class="table">
+    <table  class="table" width="100px">
       <tr>
         <th>Id</th>
           <th>img</th>
@@ -40,5 +34,3 @@
       @endforeach
     </table>
 @endsection
-{{--@include('teams.footer')--}}
-

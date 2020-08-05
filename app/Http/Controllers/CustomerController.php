@@ -8,11 +8,14 @@ use App\customer;
 
 class CustomerController extends Controller
 {
+
     public function index()
     {
       $customer = customer::all();
       return view('customers.index',compact('customer'));
     }
+
+
 
 
     public function create()
@@ -32,7 +35,6 @@ class CustomerController extends Controller
              $customer = new Customer();
              $data = $request->only($customer->getFillable());
              $data['password'] = bcrypt($request->password);
-             //$data['confpassword'] = bcrypt($request->confpassword);
              Customer::query()->create($data);
              return redirect(route('index'));
 
